@@ -1,9 +1,8 @@
-# Laravel Favorite (Laravel 5, 6, 7, 8 Package)
+# Laravel Favorite (Laravel 8 Package)
 
 [![Latest Version on Packagist][ico-version]][link-packagist]
 [![Packagist Downloads][ico-downloads]][link-packagist]
 [![Software License][ico-license]](LICENSE.md)
-[![Build Status][ico-travis]][link-travis]
 
 **Allows Laravel Eloquent models to implement a 'favorite' or 'remember' or 'follow' feature.**
 
@@ -25,25 +24,16 @@
 1) Install the package via Composer
 
 ```bash
-$ composer require christiankuri/laravel-favorite
+$ composer require manzadey/laravel-favorite
 ```
 
-2) In Laravel >=5.5 this package will automatically get registered. For older versions, update your `config/app.php` by adding an entry for the service provider.
-
-```php
-'providers' => [
-    // ...
-    Manzadey\LaravelFavorite\FavoriteServiceProvider::class,
-];
-```
-
-3) Publish the database from the command line:
+2) Publish the database from the command line:
 
 ```shell
-php artisan vendor:publish --provider="ChristianKuri\LaravelFavorite\FavoriteServiceProvider"
+php artisan vendor:publish --provider="Manzadey\LaravelFavorite\FavoriteServiceProvider"
 ```
 
-4) Migrate the database from the command line:
+3) Migrate the database from the command line:
 
 ```shell
 php artisan migrate
@@ -86,27 +76,19 @@ The models can be favorited with and without an authenticated user
 
 ### Add to favorites and remove from favorites:
 
-If no param is passed in the favorite method, then the model will asume the auth user.
+If a param is passed in the favorite method, then the model will asume the user with that user model.
 
-``` php
+```php
+$user = User::first();
 $post = Post::find(1);
-$post->addFavorite(); // auth user added to favorites this post
-$post->removeFavorite(); // auth user removed from favorites this post
-$post->toggleFavorite(); // auth user toggles the favorite status from this post
-```
-
-If a param is passed in the favorite method, then the model will asume the user with that id.
-
-``` php
-$post = Post::find(1);
-$post->addFavorite(5); // user with that id added to favorites this post
-$post->removeFavorite(5); // user with that id removed from favorites this post
-$post->toggleFavorite(5); // user with that id toggles the favorite status from this post
+$post->addFavorite($user); // user with that id added to favorites this post
+$post->removeFavorite($user); // user with that id removed from favorites this post
+$post->toggleFavorite($user); // user with that id toggles the favorite status from this post
 ```
 
 The user model can also add to favorites and remove from favrites:
 
-``` php
+```php
 $user = User::first();
 $post = Post::first();
 $user->addFavorite($post); // The user added to favorites this post
@@ -117,38 +99,29 @@ $user->toggleFavorite($post); // The user toggles the favorite status from this 
 ### Return the favorite objects for the user:
 
 A user can return the objects he marked as favorite.
-You just need to pass the **class** in the `favorite()` method in the `User` model.
+You just need to pass the **class** in the `getFavorite()` method in the `User` model.
 
-``` php
+```php
 $user = Auth::user();
-$user->favorite(Post::class); // returns a collection with the Posts the User marked as favorite
-```
-
-### Return the favorites count from an object:
-
-You can return the favorites count from an object, you just need to return the `favoritesCount` attribute from the model
-
-``` php
-$post = Post::find(1);
-$post->favoritesCount; // returns the number of users that have marked as favorite this object.
+$user->getFavorite(Post::class, Article::class); // returns a collection with the Posts the User marked as favorite
 ```
 
 ### Return the users who marked this object as favorite
 
-You can return the users who marked this object, you just need to call the `favoritedBy()` method in the object
+You can return the users who marked this object, you just need to call the `favoriteBy()` method in the object
 
-``` php
+```php
 $post = Post::find(1);
-$post->favoritedBy(); // returns a collection with the Users that marked the post as favorite.
+$post->favoriteBy(); // returns a collection with the Users that marked the post as favorite.
 ```
 
-### Check if the user already favorited an object
+### Check if the user already favorite an object
 
-You can check if the Auth user have already favorited an object, you just need to call the `isFavorited()` method in the object
+You can check if the Auth user have already favorite an object, you just need to call the `isFavorite()` method in the object
 
-``` php
+```php
 $post = Post::find(1);
-$post->isFavorited(); // returns a boolean with true or false.
+$post->isFavorite(); // returns a boolean with true or false.
 ```
 
 ## Testing
@@ -162,7 +135,7 @@ Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed re
 ## Contributions
 
 Contributions are **welcome** and will be fully **credited**.
-We accept contributions via Pull Requests on [Github](https://github.com/ChristianKuri/laravel-favorite).
+We accept contributions via Pull Requests on [Github](https://github.com/Manzadey/laravel-favorite).
 
 ### Pull Requests
 
@@ -194,17 +167,18 @@ Pull requests are welcome.
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
 
-[ico-version]: https://img.shields.io/packagist/v/ChristianKuri/laravel-favorite.svg?style=flat-square
+[ico-version]: https://img.shields.io/packagist/v/Manzadey/laravel-favorite.svg?style=flat-square
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
-[ico-travis]: https://img.shields.io/travis/ChristianKuri/laravel-favorite/master.svg?style=flat-square
-[ico-scrutinizer]: https://img.shields.io/scrutinizer/coverage/g/ChristianKuri/laravel-favorite.svg?style=flat-square
-[ico-code-quality]: https://img.shields.io/scrutinizer/g/ChristianKuri/laravel-favorite.svg?style=flat-square
-[ico-downloads]: https://img.shields.io/packagist/dt/ChristianKuri/laravel-favorite.svg?style=flat-square
+[ico-travis]: https://app.travis-ci.com/Manzadey/laravel-favorite.svg?branch=master
+[ico-scrutinizer]: https://img.shields.io/scrutinizer/coverage/g/Manzadey/laravel-favorite.svg?style=flat-square
+[ico-code-quality]: https://img.shields.io/scrutinizer/g/Manzadey/laravel-favorite.svg?style=flat-square
+[ico-downloads]: https://img.shields.io/packagist/dt/Manzadey/laravel-favorite.svg?style=flat-square
+[ico-php-version]: https://img.shields.io/packagist/php-v/manzadey/laravel-favorite?style=flat-square
 
-[link-packagist]: https://packagist.org/packages/ChristianKuri/laravel-favorite
-[link-travis]: https://travis-ci.org/ChristianKuri/laravel-favorite
-[link-scrutinizer]: https://scrutinizer-ci.com/g/ChristianKuri/laravel-favorite/code-structure
-[link-code-quality]: https://scrutinizer-ci.com/g/ChristianKuri/laravel-favorite
-[link-downloads]: https://packagist.org/packages/ChristianKuri/laravel-favorite
-[link-author]: https://github.com/ChristianKuri
+[link-packagist]: https://packagist.org/packages/Manzadey/laravel-favorite
+[link-travis]: https://travis-ci.org/Manzadey/laravel-favorite
+[link-scrutinizer]: https://scrutinizer-ci.com/g/Manzadey/laravel-favorite/code-structure
+[link-code-quality]: https://scrutinizer-ci.com/g/Manzadey/laravel-favorite
+[link-downloads]: https://packagist.org/packages/Manzadey/laravel-favorite
+[link-author]: https://github.com/Manzadey
 [link-contributors]: ../../contributors
