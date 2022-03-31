@@ -35,9 +35,9 @@ trait Favoriteable
     }
 
     /**
-     * @see FavoriteableContract::addToFavorite()
+     * @see FavoriteableContract::addFavorite()
      */
-    public function addToFavorite(FavoriteabilityContract $user) : Model
+    public function addFavorite(FavoriteabilityContract $user) : Model
     {
         return $this->favoriteable()->firstOrCreate([
             'user_id' => $user->id,
@@ -73,7 +73,7 @@ trait Favoriteable
      */
     public function toggleFavorite(FavoriteabilityContract $user) : bool
     {
-        $this->isFavorite($user) ? $this->removeFavorite($user) : $this->addToFavorite($user);
+        $this->isFavorite($user) ? $this->removeFavorite($user) : $this->addFavorite($user);
 
         return $this->isFavorite($user);
     }

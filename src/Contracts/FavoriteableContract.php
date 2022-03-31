@@ -32,7 +32,7 @@ interface FavoriteableContract
      *
      * @return Model
      */
-    public function addToFavorite(FavoriteabilityContract $user) : Model;
+    public function addFavorite(FavoriteabilityContract $user) : Model;
 
     /**
      * Check the current model whether it is a favorite of the specified user

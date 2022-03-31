@@ -35,7 +35,7 @@ trait Favoriteability
      */
     public function addFavorite(FavoriteableContract $model) : Model
     {
-        return $model->addToFavorite($this);
+        return $model->addFavorite($this);
     }
 
     /**

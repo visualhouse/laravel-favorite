@@ -16,12 +16,12 @@ class FavoriteableModelTest extends TestCase
 
         /* @var FavoriteableContract $article */
         $article = $this->articles->get(0);
-        $article->addToFavorite($user);
+        $article->addFavorite($user);
         $this->assertCount(1, $article->favoriteable);
 
         /* @var FavoriteableContract $post */
         $post = $this->posts->get(0);
-        $post->addToFavorite($user);
+        $post->addFavorite($user);
 
         $this->assertCount(1, $post->favoriteable);
 
@@ -35,7 +35,7 @@ class FavoriteableModelTest extends TestCase
 
         $usersCount = 3;
         foreach ($this->users->take($usersCount) as $user) {
-            $post->addToFavorite($user);
+            $post->addFavorite($user);
         }
         $post->load('favoriteable');
         $this->assertCount($usersCount, $post->favoriteable);
@@ -48,16 +48,16 @@ class FavoriteableModelTest extends TestCase
 
         /* @var FavoriteableContract $article */
         $article = $this->articles->get(0);
-        $article->addToFavorite($user);
-        $article->addToFavorite($user);
-        $article->addToFavorite($user);
+        $article->addFavorite($user);
+        $article->addFavorite($user);
+        $article->addFavorite($user);
         $this->assertCount(1, $article->favoriteable);
 
         /* @var FavoriteableContract $post */
         $post = $this->posts->get(0);
-        $post->addToFavorite($user);
-        $post->addToFavorite($user);
-        $post->addToFavorite($user);
+        $post->addFavorite($user);
+        $post->addFavorite($user);
+        $post->addFavorite($user);
 
         $this->assertCount(1, $post->favoriteable);
 
@@ -71,12 +71,12 @@ class FavoriteableModelTest extends TestCase
 
         /* @var FavoriteableContract $article */
         $article = $this->articles->get(0);
-        $article->addToFavorite($user);
+        $article->addFavorite($user);
         $this->assertTrue($article->isFavorite($user));
 
         /* @var FavoriteableContract $post */
         $post = $this->posts->get(0);
-        $post->addToFavorite($user);
+        $post->addFavorite($user);
         $this->assertTrue($post->isFavorite($user));
     }
 
@@ -87,12 +87,12 @@ class FavoriteableModelTest extends TestCase
 
         /* @var FavoriteableContract $article */
         $article = $this->articles->get(0);
-        $article->addToFavorite($user);
+        $article->addFavorite($user);
         $this->assertTrue($article->isFavorites());
 
         /* @var FavoriteableContract $post */
         $post = $this->posts->get(0);
-        $post->addToFavorite($user);
+        $post->addFavorite($user);
         $this->assertTrue($post->isFavorites());
     }
 
@@ -103,7 +103,7 @@ class FavoriteableModelTest extends TestCase
 
         /* @var FavoriteableContract $article */
         $article = $this->articles->get(0);
-        $article->addToFavorite($user);
+        $article->addFavorite($user);
         $this->assertCount(1, $article->favoriteable);
         $article->removeFavorite($user);
         $article->load('favoriteable');
@@ -111,7 +111,7 @@ class FavoriteableModelTest extends TestCase
 
         /* @var FavoriteableContract $post */
         $post = $this->posts->get(0);
-        $post->addToFavorite($user);
+        $post->addFavorite($user);
         $this->assertCount(1, $post->favoriteable);
         $post->removeFavorite($user);
         $post->load('favoriteable');
@@ -149,7 +149,7 @@ class FavoriteableModelTest extends TestCase
 
         /* @var FavoriteabilityContract $user */
         foreach ($this->users->take(10) as $user) {
-            $article->addToFavorite($user);
+            $article->addFavorite($user);
         }
 
         $this->assertCount(10, $article->favoriteBy());
@@ -165,7 +165,7 @@ class FavoriteableModelTest extends TestCase
 
         /* @var FavoriteabilityContract $user */
         foreach ($this->users->take($countUsers) as $user) {
-            $article->addToFavorite($user);
+            $article->addFavorite($user);
 
             if(in_array($user->id, $userIdsForDeleting, true)) {
                 $user->delete();
@@ -182,7 +182,7 @@ class FavoriteableModelTest extends TestCase
 
         /* @var FavoriteableContract $article */
         $article = $this->articles->get(0);
-        $article->addToFavorite($user);
+        $article->addFavorite($user);
         $this->assertCount(1, $article->favoriteable);
 
         $favoriteQuery = Favorite::where('user_id', $user->id)->where('favoriteable_type', $article->getMorphClass())->where('favoriteable_id', $article->id);
