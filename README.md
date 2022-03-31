@@ -41,26 +41,28 @@ php artisan migrate
 
 ## Models
 
-Your User model should import the `Traits/Favoriteability.php` trait and use it, that trait allows the user to favorite the models.
+Your User model should import the `Favoriteability` trait, `FavoriteabilityContract` implements interface and use it, that trait allows the user to favorite the models.
 (see an example below):
 
 ```php
 use Manzadey\LaravelFavorite\Traits\Favoriteability;
+use Manzadey\LaravelFavorite\Contracts\FavoriteabilityContract;
 
-class User extends Authenticatable
+class User extends Authenticatable implements FavoriteabilityContract;
 {
 	use Favoriteability;
 }
 ```
 
-Your models should import the `Traits/Favoriteable.php` trait and use it, that trait have the methods that you'll use to allow the model be favoriteable.
-In all the examples I will use the Post model as the model that is 'Favoriteable', thats for example propuses only.
+Your models should import the `Favoriteable` trait, `FavoriteableContract` implements interface and use it, that trait has the methods that you'll use to allow the model be favoriteable.
+In all the examples I will use the Post model as the model that is 'Favoriteable', that's for example proposes only.
 (see an example below):
 
 ```php
 use Manzadey\LaravelFavorite\Traits\Favoriteable;
+use Manzadey\LaravelFavorite\Contracts\FavoriteableContract;
 
-class Post extends Model
+class Post extends Model implements FavoriteableContract
 {
     use Favoriteable;
 }
@@ -71,12 +73,12 @@ Now the User can favorite models that have the favoriteable trait.
 
 ## Usage
 
-The models can be favorited with and without an authenticated user
+The models can be favorite with and without an authenticated user
 (see examples below):
 
 ### Add to favorites and remove from favorites:
 
-If a param is passed in the favorite method, then the model will asume the user with that user model.
+If a param is passed in the favorite method, then the model will assume the user with that user model.
 
 ```php
 $user = User::first();
@@ -86,7 +88,7 @@ $post->removeFavorite($user); // user with that id removed from favorites this p
 $post->toggleFavorite($user); // user with that id toggles the favorite status from this post
 ```
 
-The user model can also add to favorites and remove from favrites:
+The user model can also add to favorites and remove from favorites:
 
 ```php
 $user = User::first();
@@ -139,7 +141,7 @@ We accept contributions via Pull Requests on [Github](https://github.com/Manzade
 
 ### Pull Requests
 
-- **[PSR-2 Coding Standard](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md)** - Check the code style with ``$ composer check-style`` and fix it with ``$ composer fix-style``.
+- **[PSR-12 Coding Standard](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-12-extended-coding-style-guide.md)** - Check the code style with ``$ composer check-style`` and fix it with ``$ composer fix-style``.
 
 - **Add tests!** - Your patch won't be accepted if it doesn't have tests.
 
