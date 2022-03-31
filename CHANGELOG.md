@@ -4,6 +4,11 @@ All Notable changes to `laravel-favorite` will be documented in this file.
 
 Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
+## v2.0.0 - 2022-03-31
+
+### Added
+- Initial release.
+
 ## v1.3.0 - 2018-12-14
 
 ### Added

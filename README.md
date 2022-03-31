@@ -33,7 +33,7 @@ $ composer require christiankuri/laravel-favorite
 ```php
 'providers' => [
     // ...
-    ChristianKuri\LaravelFavorite\FavoriteServiceProvider::class,
+    Manzadey\LaravelFavorite\FavoriteServiceProvider::class,
 ];
 ```
 
@@ -55,7 +55,7 @@ Your User model should import the `Traits/Favoriteability.php` trait and use it,
 (see an example below):
 
 ```php
-use ChristianKuri\LaravelFavorite\Traits\Favoriteability;
+use Manzadey\LaravelFavorite\Traits\Favoriteability;
 
 class User extends Authenticatable
 {
@@ -68,7 +68,7 @@ In all the examples I will use the Post model as the model that is 'Favoriteable
 (see an example below):
 
 ```php
-use ChristianKuri\LaravelFavorite\Traits\Favoriteable;
+use Manzadey\LaravelFavorite\Traits\Favoriteable;
 
 class Post extends Model
 {

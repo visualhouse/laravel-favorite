@@ -1,14 +1,14 @@
 <?php
 
-namespace ChristianKuri\LaravelFavorite\Test\Models;
+namespace Manzadey\LaravelFavorite\Test\Models;
 
-use ChristianKuri\LaravelFavorite\Traits\Favoriteable;
+use Manzadey\LaravelFavorite\Contracts\FavoriteableContract;
+use Manzadey\LaravelFavorite\Traits\Favoriteable;
 use Illuminate\Database\Eloquent\Model;
 
-class Article extends Model
+class Article extends Model implements FavoriteableContract
 {
-   use Favoriteable;
-   
-   protected $table = 'articles';
-   protected $guarded = [];
+    use Favoriteable;
+
+    protected $guarded = [];
 }

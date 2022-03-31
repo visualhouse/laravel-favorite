@@ -1,101 +1,76 @@
 <?php
 
-namespace ChristianKuri\LaravelFavorite\Traits;
+namespace Manzadey\LaravelFavorite\Traits;
 
-use ChristianKuri\LaravelFavorite\Models\Favorite;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Manzadey\LaravelFavorite\Contracts\FavoriteabilityContract;
+use Manzadey\LaravelFavorite\Contracts\FavoriteableContract;
+use Manzadey\LaravelFavorite\Models\Favorite;
 
 /**
- * This file is part of Laravel Favorite,
- *
- * @license MIT
- * @package ChristianKuri/laravel-favorite
- *
- * Copyright (c) 2016 Christian Kuri
+ * @see FavoriteabilityContract
  */
 trait Favoriteability
 {
-    /**
-     * Define a one-to-many relationship.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function favorites()
+    public static function bootFavoriteability() : void
     {
-        return $this->hasMany(Favorite::class, 'user_id');
-    }
-
-    /**
-     * Return a collection with the User favorited Model.
-     * The Model needs to have the Favoriteable trait
-     * 
-     * @param  $class *** Accepts for example: Post::class or 'App\Post' ****
-     * @return Collection
-     */
-    public function favorite($class)
-    {
-        return $this->favorites()->where('favoriteable_type', $class)->with('favoriteable')->get()->mapWithKeys(function ($item) {
-            if (isset($item['favoriteable'])) {
-                return [$item['favoriteable']->id=>$item['favoriteable']];
-            }
-
-            return [];
+        static::deleted(static function(FavoriteabilityContract $model) {
+            $model->favorites()->delete();
         });
     }
 
     /**
-     * Add the object to the User favorites.
-     * The Model needs to have the Favoriteable trai
-     * 
-     * @param Object $object
+     * @see FavoriteabilityContract::favorites()
      */
-    public function addFavorite($object)
+    public function favorites() : HasMany
     {
-        $object->addFavorite($this->id);
+        return $this->hasMany(Favorite::class);
     }
 
     /**
-     * Remove the Object from the user favorites.
-     * The Model needs to have the Favoriteable trai
-     * 
-     * @param Object $object
+     * @see FavoriteabilityContract::addFavorite()
      */
-    public function removeFavorite($object)
+    public function addFavorite(FavoriteableContract $model) : Model
     {
-        $object->removeFavorite($this->id);
+        return $model->addToFavorite($this);
     }
 
     /**
-     * Toggle the favorite status from this Object from the user favorites.
-     * The Model needs to have the Favoriteable trai
-     * 
-     * @param Object $object
+     * @see FavoriteabilityContract::getFavorite()
      */
-    public function toggleFavorite($object)
+    public function getFavorite(...$classes) : Collection
     {
-        $object->toggleFavorite($this->id);
+        return $this->favorites()
+            ->when(count($classes) > 0, static fn(Builder $builder) : Builder => $builder->whereIn('favoriteable_type', $classes))
+            ->with('favoriteable')
+            ->get()
+            ->map(static fn(Favorite $favorite) : FavoriteableContract => $favorite->getRelation('favoriteable'));
     }
 
     /**
-     * Check if the user has favorited this Object
-     * The Model needs to have the Favoriteable trai
-     * 
-     * @param Object $object
-     * @return boolean
+     * @see FavoriteabilityContract::removeFavorite()
      */
-    public function isFavorited($object)
+    public function removeFavorite(FavoriteableContract $model) : void
     {
-        return $object->isFavorited($this->id);
+        $model->removeFavorite($this);
     }
 
     /**
-     * Check if the user has favorited this Object
-     * The Model needs to have the Favoriteable trai
-     * 
-     * @param Object $object
-     * @return boolean
+     * @see FavoriteabilityContract::toggleFavorite()
      */
-    public function hasFavorited($object)
+    public function toggleFavorite(FavoriteableContract $model) : bool
     {
-        return $object->isFavorited($this->id);
+        return $model->toggleFavorite($this);
+    }
+
+    /**
+     * @see FavoriteabilityContract::isFavorite()
+     */
+    public function isFavorite(FavoriteableContract $model) : bool
+    {
+        return $model->isFavorite($this);
     }
 }

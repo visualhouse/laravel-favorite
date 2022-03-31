@@ -1,115 +1,91 @@
 <?php
 
-namespace ChristianKuri\LaravelFavorite\Traits;
+namespace Manzadey\LaravelFavorite\Traits;
 
-use ChristianKuri\LaravelFavorite\Models\Favorite;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Support\Collection;
+use Manzadey\LaravelFavorite\Contracts\FavoriteabilityContract;
+use Manzadey\LaravelFavorite\Contracts\FavoriteableContract;
+use Manzadey\LaravelFavorite\Models\Favorite;
 
 /**
- * This file is part of Laravel Favorite,
+ * Add to a model that is favorite
  *
- * @license MIT
- * @package ChristianKuri/laravel-favorite
- *
- * Copyright (c) 2016 Christian Kuri
+ * @see FavoriteableContract
  */
 trait Favoriteable
 {
     /**
-     * Define a polymorphic one-to-many relationship.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+     * @see FavoriteableContract::bootFavoriteable()
      */
-    public function favorites()
+    public static function bootFavoriteable() : void
+    {
+        static::deleted(static function(FavoriteableContract $model) {
+            $model->favoriteable()->delete();
+        });
+    }
+
+    /**
+     * @see FavoriteableContract::favoriteable()
+     */
+    public function favoriteable() : MorphMany
     {
         return $this->morphMany(Favorite::class, 'favoriteable');
     }
 
     /**
-     * Add this Object to the user favorites
-     * 
-     * @param  int $user_id  [if  null its added to the auth user]
+     * @see FavoriteableContract::addToFavorite()
      */
-    public function addFavorite($user_id = null)
+    public function addToFavorite(FavoriteabilityContract $user) : Model
     {
-        $favorite = new Favorite(['user_id' => ($user_id) ? $user_id : Auth::id()]);
-        $this->favorites()->save($favorite);
+        return $this->favoriteable()->firstOrCreate([
+            'user_id' => $user->id,
+        ]);
     }
 
     /**
-     * Remove this Object from the user favorites
-     *
-     * @param  int $user_id  [if  null its added to the auth user]
-     * 
+     * @see FavoriteableContract::isFavorite()
      */
-    public function removeFavorite($user_id = null)
+    public function isFavorite(FavoriteabilityContract $user) : bool
     {
-        $this->favorites()->where('user_id', ($user_id) ? $user_id : Auth::id())->delete();
+        return $this->favoriteable()->where('user_id', $user->id)->exists();
     }
 
     /**
-     * Toggle the favorite status from this Object
-     * 
-     * @param  int $user_id  [if  null its added to the auth user]
+     * @see FavoriteableContract::isFavorites()
      */
-    public function toggleFavorite($user_id = null)
+    public function isFavorites() : bool
     {
-        $this->isFavorited($user_id) ? $this->removeFavorite($user_id) : $this->addFavorite($user_id) ;
+        return $this->favoriteable()->exists();
     }
 
     /**
-     * Check if the user has favorited this Object
-     * 
-     * @param  int $user_id  [if  null its added to the auth user]
-     * @return boolean
+     * @see FavoriteableContract::removeFavorite()
      */
-    public function isFavorited($user_id = null)
+    public function removeFavorite(FavoriteabilityContract $user) : void
     {
-        return $this->favorites()->where('user_id', ($user_id) ? $user_id : Auth::id())->exists();
+        $this->favoriteable()->where('user_id', $user->id)->delete();
     }
 
     /**
-     * Return a collection with the Users who marked as favorite this Object.
-     * 
-     * @return Collection
+     * @see FavoriteableContract::toggleFavorite()
      */
-    public function favoritedBy()
+    public function toggleFavorite(FavoriteabilityContract $user) : bool
     {
-        return $this->favorites()->with('user')->get()->mapWithKeys(function ($item) {
-            return [$item['user']->id => $item['user']];
-        });
+        $this->isFavorite($user) ? $this->removeFavorite($user) : $this->addToFavorite($user);
+
+        return $this->isFavorite($user);
     }
 
     /**
-     * Count the number of favorites
-     * 
-     * @return int
+     * @see FavoriteableContract::favoriteBy()
      */
-    public function getFavoritesCountAttribute()
+    public function favoriteBy() : Collection
     {
-        return $this->favorites()->count();
+        return $this->favoriteable()->with('user')
+            ->get()
+            ->map(static fn(Favorite $favorite) => $favorite->getRelation('user'))
+            ->filter();
     }
-
-    /**
-     * @return favoritesCount attribute
-     */
-    public function favoritesCount()
-    {
-        return $this->favoritesCount;
-    }
-
-    /**
-     * Add deleted observer to delete favorites registers
-     * 
-     * @return void
-     */
-    public static function bootFavoriteable()
-    {
-        static::deleted(
-            function ($model) {
-                $model->favorites()->delete();
-            }
-        );
-    }
-
 }

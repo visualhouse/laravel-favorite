@@ -6,7 +6,7 @@ use Manzadey\LaravelFavorite\Contracts\FavoriteableContract;
 use Manzadey\LaravelFavorite\Traits\Favoriteable;
 use Illuminate\Database\Eloquent\Model;
 
-class Post extends Model implements FavoriteableContract
+class Company extends Model implements FavoriteableContract
 {
     use Favoriteable;
 

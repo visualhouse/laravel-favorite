@@ -4,20 +4,19 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateFavoritesTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
      *
      * @return void
      */
-    public function up()
+    public function up() : void
     {
-        Schema::create('favorites', function (Blueprint $table) {
-            $table->integer('user_id')->unsigned()->index();
+        Schema::create('favorites', static function (Blueprint $table) {
+            $table->unsignedBigInteger('user_id')->index();
             $table->morphs('favoriteable');
 
-            $table->primary(['user_id', 'favoriteable_id', 'favoriteable_type']);
             $table->timestamps();
         });
     }
@@ -27,8 +26,8 @@ class CreateFavoritesTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down() : void
     {
         Schema::dropIfExists('favorites');
     }
-}
+};
