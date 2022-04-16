@@ -163,6 +163,7 @@ Pull requests are welcome.
 ## Credits
 
 - [Christian Kuri][link-author]
+- [Manzadey Andrey][link-author-2]
 - [All Contributors][link-contributors]
 
 ## License
@@ -182,5 +183,6 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 [link-scrutinizer]: https://scrutinizer-ci.com/g/Manzadey/laravel-favorite/code-structure
 [link-code-quality]: https://scrutinizer-ci.com/g/Manzadey/laravel-favorite
 [link-downloads]: https://packagist.org/packages/Manzadey/laravel-favorite
-[link-author]: https://github.com/Manzadey
+[link-author]: https://github.com/ChristianKuri
+[link-author-2]: https://github.com/Manzadey
 [link-contributors]: ../../contributors
