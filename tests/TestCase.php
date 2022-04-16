@@ -72,7 +72,7 @@ abstract class TestCase extends OrchestraTestCase
 
     protected function CreateFavoritesTable() : void
     {
-        (include __DIR__ . '/../migrations/create_favorites_table.php')->up();
+        (include __DIR__ . '/../database/migrations/create_favorites_table.php')->up();
     }
 
     public function getTempDirectory() : string
