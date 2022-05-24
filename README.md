@@ -27,16 +27,36 @@
 $ composer require manzadey/laravel-favorite
 ```
 
-2) Publish the database from the command line:
+2) You need to publish the migration to create the `favorites` table:
 
 ```shell
-php artisan vendor:publish --provider="Manzadey\LaravelFavorite\FavoriteServiceProvider"
+php artisan vendor:publish --provider="Manzadey\LaravelFavorite\FavoriteServiceProvider" --tag="migrations"
 ```
 
-3) Migrate the database from the command line:
+3) After that, you need to run migrations:
 
 ```shell
 php artisan migrate
+```
+
+## Publishing the config file
+Publishing the config file is optional:
+```shell
+php artisan vendor:publish --provider="Manzadey\LaravelFavorite\FavoriteServiceProvider" --tag="config"
+```
+
+This is the default content of the config file:
+```php
+declare(strict_types=1);
+
+return [
+    
+    /*
+     * The fully qualified class name of the favorite model.
+     */
+    'model' => \Manzadey\LaravelFavorite\Models\Favorite::class,
+    
+];
 ```
 
 ## Models
