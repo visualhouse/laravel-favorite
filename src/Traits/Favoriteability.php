@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Manzadey\LaravelFavorite\Contracts\FavoriteabilityContract;
 use Manzadey\LaravelFavorite\Contracts\FavoriteableContract;
-use Manzadey\LaravelFavorite\Models\Favorite;
 
 /**
  * @see FavoriteabilityContract
@@ -27,7 +26,7 @@ trait Favoriteability
      */
     public function favorites() : HasMany
     {
-        return $this->hasMany(Favorite::class);
+        return $this->hasMany(config('favorite.model'));
     }
 
     /**
@@ -47,7 +46,7 @@ trait Favoriteability
             ->when(count($classes) > 0, static fn(Builder $builder) : Builder => $builder->whereIn('favoriteable_type', $classes))
             ->with('favoriteable')
             ->get()
-            ->map(static fn(Favorite $favorite) : FavoriteableContract => $favorite->getRelation('favoriteable'));
+            ->map(static fn($favorite) : FavoriteableContract => $favorite->getRelation('favoriteable'));
     }
 
     /**

@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Support\Collection;
 use Manzadey\LaravelFavorite\Contracts\FavoriteabilityContract;
 use Manzadey\LaravelFavorite\Contracts\FavoriteableContract;
-use Manzadey\LaravelFavorite\Models\Favorite;
 
 /**
  * Add to a model that is favorite
@@ -31,7 +30,7 @@ trait Favoriteable
      */
     public function favoriteable() : MorphMany
     {
-        return $this->morphMany(Favorite::class, 'favoriteable');
+        return $this->morphMany(config('favorite.model'), 'favoriteable');
     }
 
     /**
@@ -85,7 +84,7 @@ trait Favoriteable
     {
         return $this->favoriteable()->with('user')
             ->get()
-            ->map(static fn(Favorite $favorite) => $favorite->getRelation('user'))
+            ->map(static fn($favorite) => $favorite->getRelation('user'))
             ->filter();
     }
 }
