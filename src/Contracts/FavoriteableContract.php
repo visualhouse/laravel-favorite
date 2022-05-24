@@ -12,13 +12,6 @@ use Illuminate\Support\Collection;
 interface FavoriteableContract
 {
     /**
-     * Add deleted observer to delete favorites registers
-     *
-     * @return void
-     */
-    public static function bootFavoriteable() : void;
-
-    /**
      * MorphMany Relationship
      *
      * @return MorphMany
