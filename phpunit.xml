@@ -19,9 +19,6 @@
         </include>
     </coverage>
     <testsuites>
-        <testsuite name="Model">
-            <directory suffix="Test.php">./tests/Models</directory>
-        </testsuite>
         <testsuite name="Unit">
             <directory suffix="Test.php">./tests/Unit</directory>
         </testsuite>
