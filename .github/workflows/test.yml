@@ -1,0 +1,34 @@
+name: tests
+
+on:
+  pull_request:
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        php: [8.0, 8.1]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Cache Composer dependencies
+        uses: actions/cache@v3
+        with:
+          path: /tmp/composer-cache
+          key: ${{ runner.os }}-${{ hashFiles('**/composer.json') }}-${{ matrix.php }}
+
+      - name: Install Composer
+        uses: php-actions/composer@v6
+        with:
+          php_version: ${{ matrix.php }}
+          version: "latest"
+
+      - name: Fix vendor permissions after composer
+        run: "sudo chown -R $(whoami): ./vendor/"
+
+      - name: Execute tests (Unit and Feature tests) via PHPUnit
+        run: composer test

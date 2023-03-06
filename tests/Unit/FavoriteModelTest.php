@@ -8,7 +8,7 @@ use Visualhouse\LaravelFavorite\Test\TestCase;
 
 class FavoriteModelTest extends TestCase
 {
-    public function testRelationships() : void
+    public function testRelationships(): void
     {
         /* @var FavoriteabilityContract $user */
         $user = $this->users->get(0);

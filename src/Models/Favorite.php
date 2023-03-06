@@ -13,12 +13,12 @@ class Favorite extends Model
         'user_id',
     ];
 
-    public function favoriteable() : MorphTo
+    public function favoriteable(): MorphTo
     {
         return $this->morphTo();
     }
 
-    public function user() : BelongsTo
+    public function user(): BelongsTo
     {
         return $this->belongsTo(Config::get('auth.providers.users.model'));
     }

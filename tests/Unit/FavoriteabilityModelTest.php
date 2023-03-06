@@ -11,7 +11,7 @@ use Visualhouse\LaravelFavorite\Test\TestCase;
 
 class FavoriteabilityModelTest extends TestCase
 {
-    public function testFavoriteFromModels() : void
+    public function testFavoriteFromModels(): void
     {
         /* @var FavoriteabilityContract $user */
         $user = $this->users->get(0);
@@ -50,7 +50,7 @@ class FavoriteabilityModelTest extends TestCase
         $this->assertCount(6, $user->getFavorite());
     }
 
-    public function testFavoriteFromModelsWithDeletingModels() : void
+    public function testFavoriteFromModelsWithDeletingModels(): void
     {
         /* @var FavoriteabilityContract $user */
         $user = $this->users->get(0);
@@ -67,7 +67,7 @@ class FavoriteabilityModelTest extends TestCase
 
         $articleDeleting = [1, 3, 5, 10];
         foreach ($user->getFavorite(Article::class) as $article) {
-            if(in_array($article->id, $articleDeleting, true)) {
+            if (in_array($article->id, $articleDeleting, true)) {
                 $article->delete();
             }
         }
@@ -75,7 +75,7 @@ class FavoriteabilityModelTest extends TestCase
         $this->assertCount($articlesCount - count($articleDeleting), $user->getFavorite(Article::class));
     }
 
-    public function testDeletedEvent() : void
+    public function testDeletedEvent(): void
     {
         /* @var FavoriteabilityContract $user */
         $user = $this->users->get(0);

@@ -11,7 +11,7 @@ class FavoriteServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot() : void
+    public function boot(): void
     {
         $this->publishes([
             __DIR__ . '/../database/migrations/create_favorites_table.php' => database_path('migrations/' . date('Y_m_d_His') . '_create_favorites_table.php'),
@@ -22,7 +22,7 @@ class FavoriteServiceProvider extends ServiceProvider
         ], 'config');
     }
 
-    public function register() : void
+    public function register(): void
     {
         $this->mergeConfigFrom(__DIR__ . '/../config/favorite.php', 'favorite');
     }
