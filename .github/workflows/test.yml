@@ -28,6 +28,9 @@ jobs:
           version: "latest"
 
       - name: Debug
+        run: "sudo chown -R $(whomai): ./vendor/"
+
+      - name: Debug
         run: ls -lahR ./vendor/orchestra/testbench-core/laravel/bootstrap/cache
 
       - name: Execute tests (Unit and Feature tests) via PHPUnit
