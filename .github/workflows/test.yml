@@ -27,11 +27,8 @@ jobs:
           php_version: ${{ matrix.php }}
           version: "latest"
 
-      - name: Debug
+      - name: Fix vendor permissions after composer
         run: "sudo chown -R $(whoami): ./vendor/"
 
-      - name: Debug
-        run: ls -lahR ./vendor/orchestra/testbench-core/laravel/bootstrap/cache
-
       - name: Execute tests (Unit and Feature tests) via PHPUnit
-        run: whoami && composer test
+        run: composer test
