@@ -28,7 +28,7 @@ jobs:
           version: "latest"
 
       - name: Debug
-        run: "sudo chown -R $(whomai): ./vendor/"
+        run: "sudo chown -R $(whoami): ./vendor/"
 
       - name: Debug
         run: ls -lahR ./vendor/orchestra/testbench-core/laravel/bootstrap/cache
