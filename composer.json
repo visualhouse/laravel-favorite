@@ -44,12 +44,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Manzadey\\LaravelFavorite\\": "src/"
+            "Visualhouse\\LaravelFavorite\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Manzadey\\LaravelFavorite\\Test\\": "tests/"
+            "Visualhouse\\LaravelFavorite\\Test\\": "tests/"
         }
     },
     "scripts": {
@@ -60,7 +60,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Manzadey\\LaravelFavorite\\FavoriteServiceProvider"
+                "Visualhouse\\LaravelFavorite\\FavoriteServiceProvider"
             ]
         },
         "branch-alias": {

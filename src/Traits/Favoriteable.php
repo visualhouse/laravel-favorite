@@ -1,12 +1,12 @@
 <?php
 
-namespace Manzadey\LaravelFavorite\Traits;
+namespace Visualhouse\LaravelFavorite\Traits;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Support\Collection;
-use Manzadey\LaravelFavorite\Contracts\FavoriteabilityContract;
-use Manzadey\LaravelFavorite\Contracts\FavoriteableContract;
+use Visualhouse\LaravelFavorite\Contracts\FavoriteabilityContract;
+use Visualhouse\LaravelFavorite\Contracts\FavoriteableContract;
 
 /**
  * Add to a model that is favorite

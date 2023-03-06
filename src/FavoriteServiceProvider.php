@@ -1,6 +1,6 @@
 <?php
 
-namespace Manzadey\LaravelFavorite;
+namespace Visualhouse\LaravelFavorite;
 
 use Illuminate\Support\ServiceProvider;
 

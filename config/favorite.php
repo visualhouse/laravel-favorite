@@ -7,7 +7,7 @@ return [
     /*
      * The fully qualified class name of the favorite model.
      */
-    'model' => \Manzadey\LaravelFavorite\Models\Favorite::class,
+    'model' => \Visualhouse\LaravelFavorite\Models\Favorite::class,
 
 ];
 

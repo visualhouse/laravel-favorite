@@ -1,6 +1,6 @@
 <?php
 
-namespace Manzadey\LaravelFavorite\Models;
+namespace Visualhouse\LaravelFavorite\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
