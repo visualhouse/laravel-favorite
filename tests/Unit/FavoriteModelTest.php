@@ -1,10 +1,10 @@
 <?php
 
-namespace Manzadey\LaravelFavorite\Test\Unit;
+namespace Visualhouse\LaravelFavorite\Test\Unit;
 
-use Manzadey\LaravelFavorite\Contracts\FavoriteabilityContract;
-use Manzadey\LaravelFavorite\Contracts\FavoriteableContract;
-use Manzadey\LaravelFavorite\Test\TestCase;
+use Visualhouse\LaravelFavorite\Contracts\FavoriteabilityContract;
+use Visualhouse\LaravelFavorite\Contracts\FavoriteableContract;
+use Visualhouse\LaravelFavorite\Test\TestCase;
 
 class FavoriteModelTest extends TestCase
 {

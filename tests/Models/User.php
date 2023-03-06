@@ -1,9 +1,9 @@
 <?php
 
-namespace Manzadey\LaravelFavorite\Test\Models;
+namespace Visualhouse\LaravelFavorite\Test\Models;
 
-use Manzadey\LaravelFavorite\Contracts\FavoriteabilityContract;
-use Manzadey\LaravelFavorite\Traits\Favoriteability;
+use Visualhouse\LaravelFavorite\Contracts\FavoriteabilityContract;
+use Visualhouse\LaravelFavorite\Traits\Favoriteability;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable implements FavoriteabilityContract

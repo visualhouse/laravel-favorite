@@ -1,13 +1,13 @@
 <?php
 
-namespace Manzadey\LaravelFavorite\Traits;
+namespace Visualhouse\LaravelFavorite\Traits;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Manzadey\LaravelFavorite\Contracts\FavoriteabilityContract;
-use Manzadey\LaravelFavorite\Contracts\FavoriteableContract;
+use Visualhouse\LaravelFavorite\Contracts\FavoriteabilityContract;
+use Visualhouse\LaravelFavorite\Contracts\FavoriteableContract;
 
 /**
  * @see FavoriteabilityContract

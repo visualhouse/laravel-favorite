@@ -1,16 +1,16 @@
 <?php
 
-namespace Manzadey\LaravelFavorite\Test;
+namespace Visualhouse\LaravelFavorite\Test;
 
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Schema\Blueprint;
-use Manzadey\LaravelFavorite\Test\Models\Company;
+use Visualhouse\LaravelFavorite\Test\Models\Company;
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
-use Manzadey\LaravelFavorite\FavoriteServiceProvider;
-use Manzadey\LaravelFavorite\Models\Favorite;
-use Manzadey\LaravelFavorite\Test\Models\Article;
-use Manzadey\LaravelFavorite\Test\Models\Post;
-use Manzadey\LaravelFavorite\Test\Models\User;
+use Visualhouse\LaravelFavorite\FavoriteServiceProvider;
+use Visualhouse\LaravelFavorite\Models\Favorite;
+use Visualhouse\LaravelFavorite\Test\Models\Article;
+use Visualhouse\LaravelFavorite\Test\Models\Post;
+use Visualhouse\LaravelFavorite\Test\Models\User;
 
 abstract class TestCase extends OrchestraTestCase
 {

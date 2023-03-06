@@ -1,61 +1,69 @@
-# Laravel Favorite (Laravel 8 Package)
+# Laravel Favorite
 
-[![Latest Version on Packagist][ico-version]][link-packagist]
-[![Packagist Downloads][ico-downloads]][link-packagist]
-[![Software License][ico-license]](LICENSE.md)
+This package is based off (https://github.com/Manzadey/laravel-favorite) forked from original work by (https://github.com/ChristianKuri/laravel-favorite).
 
-**Allows Laravel Eloquent models to implement a 'favorite' or 'remember' or 'follow' feature.**
+Allows Laravel Eloquent models to implement a 'favorite' or 'remember' or 'follow' feature.
 
 ## Index
 
-- [Installation](#installation)
-- [Models](#models)
-- [Usage](#usage)
-- [Testing](#testing)
-- [Change log](#change-log)
-- [Contributions](#contributions)
-	- [Pull Requests](#pull-requests)
-- [Security](#security)
-- [Credits](#credits)
-- [License](#license)
+-   [Laravel Favorite](#laravel-favorite)
+    -   [Index](#index)
+    -   [Installation](#installation)
+    -   [Publishing the config file](#publishing-the-config-file)
+    -   [Models](#models)
+    -   [Usage](#usage)
+        -   [Add to favorites and remove from favorites:](#add-to-favorites-and-remove-from-favorites)
+        -   [Return the favorite objects for the user:](#return-the-favorite-objects-for-the-user)
+        -   [Return the users who marked this object as favorite](#return-the-users-who-marked-this-object-as-favorite)
+        -   [Check if the user already favorite an object](#check-if-the-user-already-favorite-an-object)
+    -   [Testing](#testing)
+    -   [Change log](#change-log)
+    -   [Contributions](#contributions)
+        -   [Pull Requests](#pull-requests)
+    -   [Security](#security)
+    -   [Credits](#credits)
+    -   [License](#license)
 
 ## Installation
 
-1) Install the package via Composer
+1. Install the package via Composer
 
 ```bash
-$ composer require manzadey/laravel-favorite
+$ composer require visualhouse/laravel-favorite
 ```
 
-2) You need to publish the migration to create the `favorites` table:
+2. You need to publish the migration to create the `favorites` table:
 
 ```shell
-php artisan vendor:publish --provider="Manzadey\LaravelFavorite\FavoriteServiceProvider" --tag="migrations"
+php artisan vendor:publish --provider="Visualhouse\LaravelFavorite\FavoriteServiceProvider" --tag="migrations"
 ```
 
-3) After that, you need to run migrations:
+3. After that, you need to run migrations:
 
 ```shell
 php artisan migrate
 ```
 
 ## Publishing the config file
+
 Publishing the config file is optional:
+
 ```shell
-php artisan vendor:publish --provider="Manzadey\LaravelFavorite\FavoriteServiceProvider" --tag="config"
+php artisan vendor:publish --provider="Visualhouse\LaravelFavorite\FavoriteServiceProvider" --tag="config"
 ```
 
 This is the default content of the config file:
+
 ```php
 declare(strict_types=1);
 
 return [
-    
+
     /*
      * The fully qualified class name of the favorite model.
      */
-    'model' => \Manzadey\LaravelFavorite\Models\Favorite::class,
-    
+    'model' => \Visualhouse\LaravelFavorite\Models\Favorite::class,
+
 ];
 ```
 
@@ -65,8 +73,8 @@ Your User model should import the `Favoriteability` trait, `FavoriteabilityContr
 (see an example below):
 
 ```php
-use Manzadey\LaravelFavorite\Traits\Favoriteability;
-use Manzadey\LaravelFavorite\Contracts\FavoriteabilityContract;
+use Visualhouse\LaravelFavorite\Traits\Favoriteability;
+use Visualhouse\LaravelFavorite\Contracts\FavoriteabilityContract;
 
 class User extends Authenticatable implements FavoriteabilityContract;
 {
@@ -79,8 +87,8 @@ In all the examples I will use the Post model as the model that is 'Favoriteable
 (see an example below):
 
 ```php
-use Manzadey\LaravelFavorite\Traits\Favoriteable;
-use Manzadey\LaravelFavorite\Contracts\FavoriteableContract;
+use Visualhouse\LaravelFavorite\Traits\Favoriteable;
+use Visualhouse\LaravelFavorite\Contracts\FavoriteableContract;
 
 class Post extends Model implements FavoriteableContract
 {
@@ -157,23 +165,23 @@ Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed re
 ## Contributions
 
 Contributions are **welcome** and will be fully **credited**.
-We accept contributions via Pull Requests on [Github](https://github.com/Manzadey/laravel-favorite).
+We accept contributions via Pull Requests on [Github](https://github.com/Visualhouse/laravel-favorite).
 
 ### Pull Requests
 
-- **[PSR-12 Coding Standard](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-12-extended-coding-style-guide.md)** - Check the code style with ``$ composer check-style`` and fix it with ``$ composer fix-style``.
+-   **[PSR-12 Coding Standard](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-12-extended-coding-style-guide.md)** - Check the code style with `$ composer check-style` and fix it with `$ composer fix-style`.
 
-- **Add tests!** - Your patch won't be accepted if it doesn't have tests.
+-   **Add tests!** - Your patch won't be accepted if it doesn't have tests.
 
-- **Document any change in behaviour** - Make sure the `README.md` and any other relevant documentation are kept up-to-date.
+-   **Document any change in behaviour** - Make sure the `README.md` and any other relevant documentation are kept up-to-date.
 
-- **Consider our release cycle** - We try to follow [SemVer v2.0.0](http://semver.org/). Randomly breaking public APIs is not an option.
+-   **Consider our release cycle** - We try to follow [SemVer v2.0.0](http://semver.org/). Randomly breaking public APIs is not an option.
 
-- **Create feature branches** - Don't ask us to pull from your master branch.
+-   **Create feature branches** - Don't ask us to pull from your master branch.
 
-- **One pull request per feature** - If you want to do more than one thing, send multiple pull requests.
+-   **One pull request per feature** - If you want to do more than one thing, send multiple pull requests.
 
-- **Send coherent history** - Make sure each individual commit in your pull request is meaningful. If you had to make multiple intermediate commits while developing, please [squash them](http://www.git-scm.com/book/en/v2/Git-Tools-Rewriting-History#Changing-Multiple-Commit-Messages) before submitting.
+-   **Send coherent history** - Make sure each individual commit in your pull request is meaningful. If you had to make multiple intermediate commits while developing, please [squash them](http://www.git-scm.com/book/en/v2/Git-Tools-Rewriting-History#Changing-Multiple-Commit-Messages) before submitting.
 
 ## Security
 
@@ -182,9 +190,10 @@ Pull requests are welcome.
 
 ## Credits
 
-- [Christian Kuri][link-author]
-- [Manzadey Andrey][link-author-2]
-- [All Contributors][link-contributors]
+-   [Christian Kuri][link-author]
+-   [Manzadey Andrey][link-author-2]
+-   [Visualhouse][link-author-vh]
+-   [All Contributors][link-contributors]
 
 ## License
 
@@ -197,7 +206,6 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 [ico-code-quality]: https://img.shields.io/scrutinizer/g/Manzadey/laravel-favorite.svg?style=flat-square
 [ico-downloads]: https://img.shields.io/packagist/dt/Manzadey/laravel-favorite.svg?style=flat-square
 [ico-php-version]: https://img.shields.io/packagist/php-v/manzadey/laravel-favorite?style=flat-square
-
 [link-packagist]: https://packagist.org/packages/Manzadey/laravel-favorite
 [link-travis]: https://travis-ci.org/Manzadey/laravel-favorite
 [link-scrutinizer]: https://scrutinizer-ci.com/g/Manzadey/laravel-favorite/code-structure
@@ -205,4 +213,5 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 [link-downloads]: https://packagist.org/packages/Manzadey/laravel-favorite
 [link-author]: https://github.com/ChristianKuri
 [link-author-2]: https://github.com/Manzadey
+[link-author-vh]: https://github.com/visualhouse
 [link-contributors]: ../../contributors

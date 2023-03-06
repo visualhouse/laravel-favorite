@@ -1,13 +1,13 @@
 <?php
 
-namespace Manzadey\LaravelFavorite\Test\Unit;
+namespace Visualhouse\LaravelFavorite\Test\Unit;
 
-use Manzadey\LaravelFavorite\Contracts\FavoriteabilityContract;
-use Manzadey\LaravelFavorite\Models\Favorite;
-use Manzadey\LaravelFavorite\Test\Models\Article;
-use Manzadey\LaravelFavorite\Test\Models\Company;
-use Manzadey\LaravelFavorite\Test\Models\Post;
-use Manzadey\LaravelFavorite\Test\TestCase;
+use Visualhouse\LaravelFavorite\Contracts\FavoriteabilityContract;
+use Visualhouse\LaravelFavorite\Models\Favorite;
+use Visualhouse\LaravelFavorite\Test\Models\Article;
+use Visualhouse\LaravelFavorite\Test\Models\Company;
+use Visualhouse\LaravelFavorite\Test\Models\Post;
+use Visualhouse\LaravelFavorite\Test\TestCase;
 
 class FavoriteabilityModelTest extends TestCase
 {
