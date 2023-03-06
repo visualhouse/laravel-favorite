@@ -28,7 +28,7 @@ jobs:
           version: "latest"
 
       - name: Execute tests (Unit and Feature tests) via PHPUnit
-        run: ls -lahR ./vendor/orchestra/testbench-core/
+        run: ls -lahR ./vendor/orchestra/testbench-core/laravel/bootstrap/cache
 
       - name: Execute tests (Unit and Feature tests) via PHPUnit
-        run: composer test
+        run: whoami && composer test
