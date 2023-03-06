@@ -14,9 +14,9 @@ use Visualhouse\LaravelFavorite\Contracts\FavoriteableContract;
  */
 trait Favoriteability
 {
-    public static function bootFavoriteability() : void
+    public static function bootFavoriteability(): void
     {
-        static::deleted(static function(FavoriteabilityContract $model) {
+        static::deleted(static function (FavoriteabilityContract $model) {
             $model->favorites()->delete();
         });
     }
@@ -24,7 +24,7 @@ trait Favoriteability
     /**
      * @see FavoriteabilityContract::favorites()
      */
-    public function favorites() : HasMany
+    public function favorites(): HasMany
     {
         return $this->hasMany(config('favorite.model'));
     }
@@ -32,7 +32,7 @@ trait Favoriteability
     /**
      * @see FavoriteabilityContract::addFavorite()
      */
-    public function addFavorite(FavoriteableContract $model) : Model
+    public function addFavorite(FavoriteableContract $model): Model
     {
         return $model->addFavorite($this);
     }
@@ -40,19 +40,19 @@ trait Favoriteability
     /**
      * @see FavoriteabilityContract::getFavorite()
      */
-    public function getFavorite(...$classes) : Collection
+    public function getFavorite(...$classes): Collection
     {
         return $this->favorites()
-            ->when(count($classes) > 0, static fn(Builder $builder) : Builder => $builder->whereIn('favoriteable_type', $classes))
+            ->when(count($classes) > 0, static fn (Builder $builder): Builder => $builder->whereIn('favoriteable_type', $classes))
             ->with('favoriteable')
             ->get()
-            ->map(static fn($favorite) : FavoriteableContract => $favorite->getRelation('favoriteable'));
+            ->map(static fn ($favorite): FavoriteableContract => $favorite->getRelation('favoriteable'));
     }
 
     /**
      * @see FavoriteabilityContract::removeFavorite()
      */
-    public function removeFavorite(FavoriteableContract $model) : void
+    public function removeFavorite(FavoriteableContract $model): void
     {
         $model->removeFavorite($this);
     }
@@ -60,7 +60,7 @@ trait Favoriteability
     /**
      * @see FavoriteabilityContract::toggleFavorite()
      */
-    public function toggleFavorite(FavoriteableContract $model) : bool
+    public function toggleFavorite(FavoriteableContract $model): bool
     {
         return $model->toggleFavorite($this);
     }
@@ -68,7 +68,7 @@ trait Favoriteability
     /**
      * @see FavoriteabilityContract::isFavorite()
      */
-    public function isFavorite(FavoriteableContract $model) : bool
+    public function isFavorite(FavoriteableContract $model): bool
     {
         return $model->isFavorite($this);
     }

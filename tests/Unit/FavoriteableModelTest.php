@@ -9,7 +9,7 @@ use Visualhouse\LaravelFavorite\Test\TestCase;
 
 class FavoriteableModelTest extends TestCase
 {
-    public function testAddToFavourite() : void
+    public function testAddToFavourite(): void
     {
         /* @var FavoriteabilityContract $user */
         $user = $this->users->get(0);
@@ -28,7 +28,7 @@ class FavoriteableModelTest extends TestCase
         $this->assertCount(2, $user->favorites);
     }
 
-    public function testAddToFavoriteUsers() : void
+    public function testAddToFavoriteUsers(): void
     {
         /* @var FavoriteableContract $post */
         $post = $this->posts->get(0);
@@ -41,7 +41,7 @@ class FavoriteableModelTest extends TestCase
         $this->assertCount($usersCount, $post->favoriteable);
     }
 
-    public function testAddToFavoriteDuplicated() : void
+    public function testAddToFavoriteDuplicated(): void
     {
         /* @var FavoriteabilityContract $user */
         $user = $this->users->get(0);
@@ -64,7 +64,7 @@ class FavoriteableModelTest extends TestCase
         $this->assertCount(2, $user->favorites);
     }
 
-    public function testIsFavoriteFromUser() : void
+    public function testIsFavoriteFromUser(): void
     {
         /* @var FavoriteabilityContract $user */
         $user = $this->users->get(0);
@@ -80,7 +80,7 @@ class FavoriteableModelTest extends TestCase
         $this->assertTrue($post->isFavorite($user));
     }
 
-    public function testIsFavorites() : void
+    public function testIsFavorites(): void
     {
         /* @var FavoriteabilityContract $user */
         $user = $this->users->get(0);
@@ -96,7 +96,7 @@ class FavoriteableModelTest extends TestCase
         $this->assertTrue($post->isFavorites());
     }
 
-    public function testRemoveFavoriteFromUser() : void
+    public function testRemoveFavoriteFromUser(): void
     {
         /* @var FavoriteabilityContract $user */
         $user = $this->users->get(0);
@@ -118,7 +118,7 @@ class FavoriteableModelTest extends TestCase
         $this->assertCount(0, $post->favoriteable);
     }
 
-    public function testToggleFavorite() : void
+    public function testToggleFavorite(): void
     {
         /* @var FavoriteabilityContract $user */
         $user = $this->users->get(0);
@@ -142,7 +142,7 @@ class FavoriteableModelTest extends TestCase
         $this->assertFalse($user->toggleFavorite($article));
     }
 
-    public function testFavoriteBy() : void
+    public function testFavoriteBy(): void
     {
         /* @var FavoriteableContract $article */
         $article = $this->articles->get(0);
@@ -155,7 +155,7 @@ class FavoriteableModelTest extends TestCase
         $this->assertCount(10, $article->favoriteBy());
     }
 
-    public function testFavoriteByWithDeletingUserModels() : void
+    public function testFavoriteByWithDeletingUserModels(): void
     {
         /* @var FavoriteableContract $article */
         $article = $this->articles->get(0);
@@ -167,7 +167,7 @@ class FavoriteableModelTest extends TestCase
         foreach ($this->users->take($countUsers) as $user) {
             $article->addFavorite($user);
 
-            if(in_array($user->id, $userIdsForDeleting, true)) {
+            if (in_array($user->id, $userIdsForDeleting, true)) {
                 $user->delete();
             }
         }
@@ -175,7 +175,7 @@ class FavoriteableModelTest extends TestCase
         $this->assertCount($countUsers - count($userIdsForDeleting), $article->favoriteBy());
     }
 
-    public function testDeletedEvent() : void
+    public function testDeletedEvent(): void
     {
         /* @var FavoriteabilityContract $user */
         $user = $this->users->get(0);
